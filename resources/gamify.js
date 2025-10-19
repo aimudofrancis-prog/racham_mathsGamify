@@ -215,7 +215,17 @@ if(parseInt(answer) === problem.answer) {
     ));
   }
   alert(`Correct! +${problem.points} points`);
-} else {
+}else {
   player.takeDamage(problem.damage);
+  for(let i = 0; i < 20; i++) {
+    particles.push(new Particle(
+      player.x + player.width/2,
+      player.y + player.height/2,
+      '#FF0000',
+      Math.random() * 5 + 2,
+      { x: (Math.random() - 0.5) * 4, y: (Math.random() - 0.5) * 4 }
+    ));
+  }
   alert(`Wrong! -${problem.damage} HP`);
-}
+}//wrong answer trigger red particles
+
