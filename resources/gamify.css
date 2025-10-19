@@ -36,12 +36,14 @@
     }
 
     canvas {
-      border: 2px solid gold;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-      background: rgba(0, 0, 0, 0.3);
-      transition: background 0.5s ease;
-    }
+  background: radial-gradient(circle at top, #001f3f, #000814);
+  border: 2px solid gold;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  display: block;
+  margin: auto;
+}
+
 
     /* === Glowing Player Animation === */
     @keyframes playerGlow {

@@ -22,10 +22,13 @@ class Player {
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
-  move(keys) {
-    if(keys['ArrowLeft'] && this.x > 0) this.x -= this.speed;
-    if(keys['ArrowRight'] && this.x + this.width < canvas.width) this.x += this.speed;
-  }
+ move(keys) {
+  if (keys['ArrowLeft'] && this.x > 0) this.x -= this.speed;
+  if (keys['ArrowRight'] && this.x + this.width < canvas.width) this.x += this.speed;
+  if (keys['ArrowUp'] && this.y > 0) this.y -= this.speed;
+  if (keys['ArrowDown'] && this.y + this.height < canvas.height) this.y += this.speed;
+}
+
 
   takeDamage(amount) {
     this.hp -= amount;
@@ -102,9 +105,10 @@ class Enemy {
   }
 
   move() {
-    this.y += this.speed;
-    if(this.y > canvas.height) this.reset();
-  }
+  this.y += this.speed;
+  if (this.y > canvas.height) this.reset();
+}
+
 
   reset() {
     this.x = Math.random() * (canvas.width - this.width);
@@ -230,32 +234,19 @@ function checkCollision(a, b) {
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  player.move(keys);
-  enemy.move();
+player.move(keys);
+enemy.move();
 
-  if(checkCollision(player, enemy)) {
-    enemy.mathChallenge();
-    enemy.reset();
-  }
+if (checkCollision(player, enemy)) {
+  enemy.mathChallenge();
+  enemy.reset();
+}
 
-  player.draw();
-  enemy.draw();
+player.draw(); // 🟡 player drawn after moving
+enemy.draw();  // 🔵 enemy drawn after moving
 
-  // Animate particles
-  particles.forEach((p, index) => {
-    p.update();
-    p.draw();
-    if(p.alpha <= 0) particles.splice(index, 1);
-  });
+requestAnimationFrame(gameLoop);
 
-  // Animate floating text
-  floatingTexts.forEach((t, index) => {
-    t.update();
-    t.draw();
-    if(t.alpha <= 0) floatingTexts.splice(index, 1);
-  });
-
-  requestAnimationFrame(gameLoop);
 }
 
 // 🚀 Start the game
