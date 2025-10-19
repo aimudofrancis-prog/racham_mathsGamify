@@ -1,0 +1,57 @@
+/* Global colors */
+    :root {
+      --brand-blue: #051950; /* deep royal blue */
+      --brand-golden: #776608; /* golden */
+      --brand-white: #FFFFFF;
+    }
+
+    /* Reset & base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+      background-color: var(--brand-blue);
+      color: var(--brand-white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: var(--brand-golden);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Scoreboard */
+    #scoreboard {
+      display: flex;
+      justify-content: space-around;
+      width: 90%;
+      max-width: 600px;
+      margin: 10px 0;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid var(--brand-golden);
+      border-radius: 12px;
+    }
+
+    #scoreboard div {
+      font-size: 1.2rem;
+    }
+
+    /* Game canvas */
+    #gameCanvas {
+      border: 3px solid var(--brand-golden);
+      border-radius: 12px;
+      background-color: var(--brand-white);
+      display: block;
+      margin-top: 10px;
+    }
