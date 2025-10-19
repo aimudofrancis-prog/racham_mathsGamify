@@ -12,13 +12,31 @@
 <body>
  <h1>⚔️ Math Battle Game ⚔️</h1>
 
-  <div id="scoreboard">
-    <span>Player HP: <strong id="playerHP">100</strong></span>
-    <span>Enemy HP: <strong id="enemyHP">100</strong></span>
-    <span>Score: <strong id="score">0</strong></span>
+<div class="game-wrapper">
+  <!-- Left side: Scoreboard and Canvas -->
+  <div class="game-area">
+    <div id="scoreboard">
+      <span>Player HP: <strong id="playerHP">100</strong></span>
+      <span>Enemy HP: <strong id="enemyHP">100</strong></span>
+      <span>Score: <strong id="score">0</strong></span>
+    </div>
+
+    <canvas id="gameCanvas" width="700" height="450"></canvas>
   </div>
 
-  <canvas id="gameCanvas" width="700" height="450"></canvas>
+  <!-- Right side: Instructions -->
+  <div class="instruction-box">
+    <h2>How to Play</h2>
+    <ul>
+      <li>Use arrow keys to move the yellow box (Player).</li>
+      <li>Collide with the blue box to answer math questions.</li>
+      <li>Solve correctly to earn points.</li>
+      <li>Get 8 correct answers to level up.</li>
+      <li>Reach Level 10 to win the game!</li>
+      <li>Score, level, and HP are displayed above the canvas.</li>
+    </ul>
+  </div>
+</div>
 
 
     <!-- attaching javascript -->
