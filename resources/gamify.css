@@ -80,8 +80,6 @@ canvas {
 
 
 
-
-
 /* ==== PARTICLE ANIMATION ==== */
 @keyframes particleFloat {
   0% { transform: translateY(0px) scale(1); opacity: 0.8; }
@@ -98,3 +96,68 @@ canvas {
   animation: particleFloat 3s infinite ease-in-out;
   opacity: 0.5;
 }
+
+/* ===== New Styles for Game Layout & Instructions ===== */
+
+/* Flex container for canvas + instructions */
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap; /* Allows stacking on mobile */
+  margin: 20px;
+}
+
+/* Game area (scoreboard + canvas) */
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Instruction Box Styling */
+.instruction-box {
+  background-color: #1E3A8A;
+  border: 2px solid #FFD700;
+  color: #FFD700;
+  font-family: 'Russo One', sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 300px;
+}
+
+.instruction-box h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+.instruction-box ul {
+  padding-left: 20px;
+}
+
+.instruction-box li {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .game-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .instruction-box {
+    max-width: 90%;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .instruction-box {
+    font-size: 14px;
+    padding: 15px;
+  }
+}
+
