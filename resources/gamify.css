@@ -1,57 +1,76 @@
-/* Global colors */
-    :root {
-      --brand-blue: #051950; /* deep royal blue */
-      --brand-golden: #776608; /* golden */
-      --brand-white: #FFFFFF;
-    }
-
-    /* Reset & base styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
-
+/* ====== GLOBAL STYLES ====== */
     body {
-      background-color: var(--brand-blue);
-      color: var(--brand-white);
+      background: radial-gradient(circle at top, #001f3f, #000814);
+      margin: 0;
+      overflow: hidden;
+      color: white;
+      font-family: 'Russo One', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       height: 100vh;
-      overflow: hidden;
     }
 
     h1 {
-      margin-top: 20px;
-      color: var(--brand-golden);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      color: gold;
+      text-shadow: 0 0 10px #ffd700, 0 0 25px #fff066;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
     }
 
-    /* Scoreboard */
     #scoreboard {
       display: flex;
-      justify-content: space-around;
-      width: 90%;
-      max-width: 600px;
-      margin: 10px 0;
-      padding: 10px 20px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 2px solid var(--brand-golden);
-      border-radius: 12px;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
     }
 
-    #scoreboard div {
-      font-size: 1.2rem;
+    #scoreboard span {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 16px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
 
-    /* Game canvas */
-    #gameCanvas {
-      border: 3px solid var(--brand-golden);
-      border-radius: 12px;
-      background-color: var(--brand-white);
-      display: block;
-      margin-top: 10px;
+    canvas {
+      border: 2px solid gold;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      background: rgba(0, 0, 0, 0.3);
+      transition: background 0.5s ease;
+    }
+
+    /* === Glowing Player Animation === */
+    @keyframes playerGlow {
+      0% { filter: drop-shadow(0 0 5px #ffd700); }
+      50% { filter: drop-shadow(0 0 20px #fff066); }
+      100% { filter: drop-shadow(0 0 5px #ffd700); }
+    }
+
+    .glow {
+      animation: playerGlow 1.2s infinite ease-in-out;
+    }
+
+    /* === Particle Floating Animation === */
+    @keyframes particleFloat {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.3) rotate(180deg); opacity: 0.8; }
+      100% { transform: scale(1) rotate(360deg); opacity: 0; }
+    }
+
+    .particleEffect {
+      animation: particleFloat 1s ease-out forwards;
+    }
+
+    /* === Score Flash === */
+    @keyframes scoreFlash {
+      0%, 100% { color: white; transform: scale(1); }
+      50% { color: gold; transform: scale(1.3); }
+    }
+
+    .score-animate {
+      animation: scoreFlash 0.6s ease-in-out;
     }
