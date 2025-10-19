@@ -256,4 +256,57 @@ class FloatingText {
 
 let floatingTexts = [];
 
+//check if floating
+if(parseInt(answer) === problem.answer) {
+  floatingTexts.push(new FloatingText(player.x, player.y - 20, `+${problem.points}`, '#FFD700'));
+} else {
+  floatingTexts.push(new FloatingText(player.x, player.y - 20, `-${problem.damage} HP`, '#FF0000'));
+}
+// Update and draw particles and floating texts in game loop
+//highlighting bonus effects
+if(['%', '**'].includes(operator)) {
+  // Flash background or create particles
+  for(let i = 0; i < 30; i++) {
+    particles.push(new Particle(
+      Math.random() * canvas.width,
+      Math.random() * canvas.height,
+      '#FFD700',
+      Math.random() * 5 + 2,
+      { x: (Math.random() - 0.5) * 6, y: (Math.random() - 0.5) * 6 }
+    ));
+  }
+}
+   //update game loop
+   function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  player.move(keys);
+  enemy.move();
+
+  if(checkCollision(player, enemy)) {
+    enemy.mathChallenge();
+    enemy.reset();
+  }
+
+  player.draw();
+  enemy.draw();
+
+  // Update particles
+  particles.forEach((p, index) => {
+    p.update();
+    p.draw();
+    if(p.alpha <= 0) particles.splice(index, 1);
+  });
+
+  // Update floating texts
+  floatingTexts.forEach((t, index) => {
+    t.update();
+    t.draw();
+    if(t.alpha <= 0) floatingTexts.splice(index, 1);
+  });
+
+  requestAnimationFrame(gameLoop);
+}
+
+
 
