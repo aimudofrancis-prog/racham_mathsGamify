@@ -4,6 +4,12 @@ const ctx = canvas.getContext("2d");
 canvas.width = 600;
 canvas.height = 400;
 
+// ==== GLOBAL VARIABLES ====
+let currentLevel = 1;       // Current level
+let correctAnswers = 0;     // Counts correct answers for current level
+let score = 0;              // Track score points
+let isQuestionActive = false; // Flag to control math question display
+
 // ==== PLAYER (YELLOW BOX) ====
 class Player {
   constructor() {
@@ -57,12 +63,13 @@ class Enemy {
     if (this.y > canvas.height) this.reset();
   }
 
- mathChallenge() {
+  mathChallenge() {
+    if (isQuestionActive) return; // ✅ Only trigger one question at a time
+    isQuestionActive = true;
+
     const a = Math.floor(Math.random() * 10) + 1;
     const b = Math.floor(Math.random() * 10) + 1;
-
-    // Random operator
-    const operators = ['+', '-', '*', '%']; // you can add '/', '**' etc.
+    const operators = ['+', '-', '*', '%'];
     const operator = operators[Math.floor(Math.random() * operators.length)];
 
     let correctAnswer;
@@ -73,29 +80,70 @@ class Enemy {
         case '%': correctAnswer = a % b; break;
     }
 
-    const answer = prompt(`Level ${currentLevel}: What is ${a} ${operator} ${b}?`);
+    showMathQuestion(a, b, operator, (answer) => {
+        if (answer === correctAnswer) {
+            correctAnswers++;
+            score += 10;
+            alert("✅ Correct!");
 
-    if (parseInt(answer) === correctAnswer) {
-        correctAnswers++;
-        score += 10;
-        alert("✅ Correct!");
-
-        if (correctAnswers >= 8) {
-            if (currentLevel < 10) {
-                currentLevel++;
-                correctAnswers = 0;
-                alert(`🎉 Level Up! Welcome to Level ${currentLevel}`);
-            } else {
-                alert("🏆 Congratulations! You completed Level 10 and won the game!");
-                currentLevel = 1;
-                correctAnswers = 0;
-                score = 0;
+            if (correctAnswers >= 8) {
+                if (currentLevel < 10) {
+                    currentLevel++;
+                    correctAnswers = 0;
+                    alert(`🎉 Level Up! Welcome to Level ${currentLevel}`);
+                } else {
+                    alert("🏆 Congratulations! You completed Level 10 and won the game!");
+                    currentLevel = 1;
+                    correctAnswers = 0;
+                    score = 0;
+                }
             }
+        } else {
+            alert("❌ Oops! Try again!");
         }
-    } else {
-        alert("❌ Oops! Try again!");
-    }
+        isQuestionActive = false; // ✅ Allow next question
+    });
+  }
 }
+
+// ==== NON-BLOCKING HTML INPUT FOR QUESTIONS ====
+function showMathQuestion(a, b, operator, callback) {
+  const inputDiv = document.createElement('div');
+  inputDiv.style.position = 'absolute';
+  inputDiv.style.top = '50%';
+  inputDiv.style.left = '50%';
+  inputDiv.style.transform = 'translate(-50%, -50%)';
+  inputDiv.style.background = '#0F172A';
+  inputDiv.style.padding = '20px';
+  inputDiv.style.border = '2px solid #FFD700';
+  inputDiv.style.color = '#FFD700';
+  inputDiv.style.fontFamily = 'Orbitron, sans-serif';
+  inputDiv.style.textAlign = 'center';
+  inputDiv.style.zIndex = 1000;
+
+  const question = document.createElement('div');
+  question.textContent = `Level ${currentLevel}: What is ${a} ${operator} ${b}?`;
+
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.style.marginTop = '10px';
+  input.style.fontSize = '16px';
+
+  const submit = document.createElement('button');
+  submit.textContent = 'Submit';
+  submit.style.marginLeft = '10px';
+  submit.style.cursor = 'pointer';
+
+  inputDiv.appendChild(question);
+  inputDiv.appendChild(input);
+  inputDiv.appendChild(submit);
+  document.body.appendChild(inputDiv);
+
+  submit.addEventListener('click', () => {
+    const answer = parseInt(input.value);
+    callback(answer);
+    document.body.removeChild(inputDiv);
+  });
 }
 
 // ==== COLLISION DETECTION ====
@@ -116,14 +164,11 @@ const keys = {};
 document.addEventListener("keydown", (e) => (keys[e.key] = true));
 document.addEventListener("keyup", (e) => (keys[e.key] = false));
 
-let currentLevel = 1;       // Current level
-let correctAnswers = 0;     // Counts correct answers for current level
-let score = 0;              // Optional: track score points
-
-
 // ==== GAME LOOP ====
 function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // ✅ Deep blue background
+  ctx.fillStyle = "#0F172A"; 
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Move & Draw Player
   player.move(keys);
