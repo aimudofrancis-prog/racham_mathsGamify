@@ -61,6 +61,14 @@ class Enemy {
     const a = Math.floor(Math.random() * 10) + 1;
     const b = Math.floor(Math.random() * 10) + 1;
     const answer = prompt(`Level ${currentLevel}: What is ${a} + ${b}?`);
+    const scoreEl = document.getElementById('score');        
+    const levelEl = document.getElementById('level-display');
+
+function updateUI() {
+    scoreEl.textContent = score;
+    levelEl.textContent = `Level: ${currentLevel}`;
+}
+
 
     if (parseInt(answer) === a + b) {
         correctAnswers++;    // Increment correct answers
