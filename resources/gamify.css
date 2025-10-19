@@ -161,3 +161,32 @@ canvas {
   }
 }
 
+/* ===== Mobile-Friendly Adjustments ===== */
+@media screen and (max-width: 768px) {
+  .game-wrapper {
+    flex-direction: column;       /* Stack canvas and instructions vertically */
+    align-items: center;          /* Center both elements */
+    gap: 15px;                    /* Slight gap between canvas and instructions */
+  }
+
+  .instruction-box {
+    max-width: 90%;               /* Use most of screen width */
+    font-size: 16px;              /* Slightly larger for readability */
+    margin-top: 15px;             /* Space between canvas and box */
+    padding: 15px;                /* Comfortable padding */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .instruction-box {
+    font-size: 14px;              /* Adjust text for very small screens */
+    padding: 12px;                /* Compact padding */
+  }
+
+  #gameCanvas {
+    width: 90%;                   /* Make canvas responsive */
+    height: auto;                 /* Keep aspect ratio */
+  }
+}
+
+
