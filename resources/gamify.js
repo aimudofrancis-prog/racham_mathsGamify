@@ -60,41 +60,42 @@ class Enemy {
  mathChallenge() {
     const a = Math.floor(Math.random() * 10) + 1;
     const b = Math.floor(Math.random() * 10) + 1;
-    const answer = prompt(`Level ${currentLevel}: What is ${a} + ${b}?`);
-    const scoreEl = document.getElementById('score');        
-    const levelEl = document.getElementById('level-display');
 
-function updateUI() {
-    scoreEl.textContent = score;
-    levelEl.textContent = `Level: ${currentLevel}`;
-}
+    // Random operator
+    const operators = ['+', '-', '*', '%']; // you can add '/', '**' etc.
+    const operator = operators[Math.floor(Math.random() * operators.length)];
 
+    let correctAnswer;
+    switch(operator) {
+        case '+': correctAnswer = a + b; break;
+        case '-': correctAnswer = a - b; break;
+        case '*': correctAnswer = a * b; break;
+        case '%': correctAnswer = a % b; break;
+    }
 
-    if (parseInt(answer) === a + b) {
-        correctAnswers++;    // Increment correct answers
-        score += 10;         // Optional: increase score points
+    const answer = prompt(`Level ${currentLevel}: What is ${a} ${operator} ${b}?`);
+
+    if (parseInt(answer) === correctAnswer) {
+        correctAnswers++;
+        score += 10;
         alert("✅ Correct!");
 
-        // ===== LEVEL PROGRESSION =====
         if (correctAnswers >= 8) {
             if (currentLevel < 10) {
-                currentLevel++;      // Move to next level
-                correctAnswers = 0;  // Reset counter for next level
+                currentLevel++;
+                correctAnswers = 0;
                 alert(`🎉 Level Up! Welcome to Level ${currentLevel}`);
             } else {
                 alert("🏆 Congratulations! You completed Level 10 and won the game!");
-                // Optional: reset game
                 currentLevel = 1;
                 correctAnswers = 0;
-               score += 10;
-              updateUI();
+                score = 0;
             }
         }
     } else {
         alert("❌ Oops! Try again!");
     }
 }
-
 }
 
 // ==== COLLISION DETECTION ====
