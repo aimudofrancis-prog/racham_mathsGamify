@@ -35,11 +35,12 @@
       box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
 
-    canvas {
-  background: radial-gradient(circle at top, #001f3f, #000814);
-  border: 2px solid gold;
+  /* ==== GAME CANVAS ==== */
+canvas {
+  background: radial-gradient(circle at top, #445b00, #bcd327);
+  border: 3px solid gold;
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
   display: block;
   margin: auto;
 }
@@ -76,3 +77,24 @@
     .score-animate {
       animation: scoreFlash 0.6s ease-in-out;
     }
+
+
+
+
+
+/* ==== PARTICLE ANIMATION ==== */
+@keyframes particleFloat {
+  0% { transform: translateY(0px) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.8; }
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, cyan, blue);
+  border-radius: 50%;
+  animation: particleFloat 3s infinite ease-in-out;
+  opacity: 0.5;
+}
