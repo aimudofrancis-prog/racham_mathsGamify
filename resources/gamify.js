@@ -57,16 +57,36 @@ class Enemy {
     if (this.y > canvas.height) this.reset();
   }
 
-  mathChallenge() {
+ mathChallenge() {
     const a = Math.floor(Math.random() * 10) + 1;
     const b = Math.floor(Math.random() * 10) + 1;
-    const answer = prompt(`Quick! What is ${a} + ${b}?`);
+    const answer = prompt(`Level ${currentLevel}: What is ${a} + ${b}?`);
+
     if (parseInt(answer) === a + b) {
-      alert("✅ Correct!");
+        correctAnswers++;    // Increment correct answers
+        score += 10;         // Optional: increase score points
+        alert("✅ Correct!");
+
+        // ===== LEVEL PROGRESSION =====
+        if (correctAnswers >= 8) {
+            if (currentLevel < 10) {
+                currentLevel++;      // Move to next level
+                correctAnswers = 0;  // Reset counter for next level
+                alert(`🎉 Level Up! Welcome to Level ${currentLevel}`);
+            } else {
+                alert("🏆 Congratulations! You completed Level 10 and won the game!");
+                // Optional: reset game
+                currentLevel = 1;
+                correctAnswers = 0;
+               score += 10;
+              updateUI();
+            }
+        }
     } else {
-      alert("❌ Oops! Try again!");
+        alert("❌ Oops! Try again!");
     }
-  }
+}
+
 }
 
 // ==== COLLISION DETECTION ====
@@ -86,6 +106,11 @@ const keys = {};
 
 document.addEventListener("keydown", (e) => (keys[e.key] = true));
 document.addEventListener("keyup", (e) => (keys[e.key] = false));
+
+let currentLevel = 1;       // Current level
+let correctAnswers = 0;     // Counts correct answers for current level
+let score = 0;              // Optional: track score points
+
 
 // ==== GAME LOOP ====
 function gameLoop() {
