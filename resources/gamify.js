@@ -229,3 +229,31 @@ if(parseInt(answer) === problem.answer) {
   alert(`Wrong! -${problem.damage} HP`);
 }//wrong answer trigger red particles
 
+//floating text animation
+class FloatingText {
+  constructor(x, y, text, color) {
+    this.x = x;
+    this.y = y;
+    this.text = text;
+    this.color = color;
+    this.alpha = 1;
+  }
+
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = this.color;
+    ctx.font = '20px Orbitron';
+    ctx.fillText(this.text, this.x, this.y);
+    ctx.restore();
+  }
+
+  update() {
+    this.y -= 1;
+    this.alpha -= 0.02;
+  }
+}
+
+let floatingTexts = [];
+
+
